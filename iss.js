@@ -12,11 +12,12 @@ const request = require('request');
  */
 const fetchMyIP = function(callback) {
   request('https://api.ipify.org?format=json', (error, response, body) => {
-    if (error) return callback(error, null);
+    if (error) {
+      return callback(error, null);
+    }
 
     if (response.statusCode !== 200) {
-      callback(Error(`Status Code ${response.statusCode} when fetching IP: ${body}`), null);
-      return;
+      return callback(Error(`Status Code ${response.statusCode} when fetching IP: ${body}`), null);
     }
 
     const ip = JSON.parse(body).ip;
@@ -103,6 +104,7 @@ const nextISSTimesForMyLocation = function(callback) {
     });
   });
 };
+
 
 module.exports = { nextISSTimesForMyLocation };
 
